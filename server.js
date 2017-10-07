@@ -88,7 +88,9 @@ app.get('/pagecount', function (req, res) {
     res.send('{ pageCount: -1 }');
   }
 });
-
+app.get('/initialize', function (req, res) {
+ res.render('initialize.html');
+});
 // error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
