@@ -2,7 +2,9 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
-    
+var path=require('path');
+app.use(express.static(path.join(__dirname+'/views')));
+var bodyParser=require('body-parser');
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -12,6 +14,32 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
+var getuser={posts:[
+{id:"user0",name:"ahamed irfan",description:"CSS is a Styling language used to design webpages",postedtime:new Date().toLocaleTimeString()},
+{id:"user1",name:"wasim akram",description:"CSS is used to add styles to webpages externally or through style tag or by inlining styles",postedtime:new Date().toLocaleTimeString()},
+{id:"user2",name:"earshath khan",description:"CSS is used along with HTML for designing the webpage ",postedtime:new Date().toLocaleTimeString()},
+{id:"user3",name:"ahamedirfan",description:"CSS is used to perform liquid animations ",postedtime:new Date().toLocaleTimeString()}
+]};
+app.use(bodyParser.urlencoded({extended:false}));
+app.get("/getuser",function(req,res){
+console.log("request received");
+res.send(getuser.posts);
+});
+app.post("/postcomment",function(req,res){
+console.log(typeof req.body.post);
+console.log(req.body);
+getuser.posts.push(JSON.parse(req.body.post));
+console.log(typeof getuser.posts);
+res.send(getuser.posts);
+});
+app.post("/updatecomment",function(req,res){
+console.log(typeof req.body.updatedposts);
+console.log("updatecomment"+getuser.posts);
+console.log("updatedposts"+req.body.updatedposts);
+getuser.posts=[];
+getuser.posts=JSON.parse(req.body.updatedposts).updatedposts;
+res.send(getuser.posts);
+});
 
 if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
   var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
