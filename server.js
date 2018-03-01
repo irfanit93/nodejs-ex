@@ -3,7 +3,7 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
 var path=require('path');
-app.use(express.static(path.join(__dirname+'/views')));
+app.use(express.static(path.join(__dirname+'/reactposts')));
 var bodyParser=require('body-parser');
 Object.assign=require('object-assign')
 
