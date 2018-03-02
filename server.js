@@ -100,7 +100,7 @@ app.get('/', function (req, res) {
   //} else {
   //  res.render('index.html', { pageCountMessage : null});
   //}
-res.sendFile('react-posts.html',{root: __dirname + '/reactposts/'});	
+res.sendFile('index.html',{root: __dirname + '/reactposts/'});	
 
 }
 });
