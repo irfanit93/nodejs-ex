@@ -91,15 +91,18 @@ app.get('/', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    var col = db.collection('counts');
+    //var col = db.collection('counts');
     // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
+    //col.insert({ip: req.ip, date: Date.now()});
+    //col.count(function(err, count){
+      //res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
+    //});
+  //} else {
+  //  res.render('index.html', { pageCountMessage : null});
+  //}
+res.sendFile('react-posts.html',{root: __dirname + '/reactposts/'});	
+
+}
 });
 
 app.get('/pagecount', function (req, res) {
